@@ -10,9 +10,9 @@ const CourseItem = ({data}) => {
                 <p>{data?.description}</p>
             </Col>
             <ButtonGroup>
-                <Button variant="primary">Edit</Button>
-                <Button variant="danger">Delete</Button>
-                <Button variant="secondary">Download</Button>
+                <Button variant="primary" onClick={() => {}}>Edit</Button>
+                <Button variant="danger" onClick={() => {}}>Delete</Button>
+                <Button variant="secondary" onClick={() => {}}>Download</Button>
             </ButtonGroup>
         </StyledListItem>
     )

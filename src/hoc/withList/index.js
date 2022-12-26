@@ -1,26 +1,27 @@
 import React from "react";
 import {Button} from "react-bootstrap";
-import {StyledContainer} from "../../components";
+
+import {Pagination, StyledContainer} from "../../components";
+
 import {StyledText} from "./styles";
-import Pagination from "../../components/Pagination";
 
 const Empty = () => (
     <StyledText>Data Kosong...</StyledText>
 )
 
-export default (ListComponent, listData) => {
-    return () => {
-        const [data, setData] = React.useState(listData);
+export default (ListComponent) => {
+    return (props) => {
+        const [dataList, setDataList] = React.useState(props.dataList);
         const [page, setPage] = React.useState(1);
 
         return (
             <>
                 <StyledContainer>
                     <Button variant="success">Add Data</Button>
-                    {data?.data?.length > 0 ? <ListComponent data={data?.data} /> : <Empty />}
+                    {dataList?.length > 0 ? <ListComponent data={dataList} /> : <Empty />}
                 </StyledContainer>
                 <Pagination
-                    totalPage={data?.pagination?.totalPage}
+                    totalPage={props?.pagination?.totalPage}
                     onChangePage={setPage}
                     page={page}
                 />

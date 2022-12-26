@@ -2,7 +2,11 @@ import React from 'react';
 import {
     Form, Button, ButtonGroup
 } from "react-bootstrap";
+import {connect} from "react-redux";
+
 import {FormInput, StyledContainer} from "../../components";
+import {addCourse} from "../../store/actions/courseAction";
+import constants from "../../constants";
 
 import {StyledTitle} from "./styles";
 import useAddCourseState from "./hooks/useAddCourseState";
@@ -16,8 +20,14 @@ const FORM_LIST = [
     { id: "duration", label: "Duration", type: "text", placeholder: "Enter course duration" }
 ]
 
-const AddCourse = () => {
+const AddCourse = ({
+    addCourse, onNavigate
+}) => {
     const { getter, setter } = useAddCourseState();
+    const submitHandler = () => {
+        addCourse(getter)
+        onNavigate(constants.ROUTES.COURSE_LIST)
+    }
 
     return (
         <StyledContainer>
@@ -30,13 +40,14 @@ const AddCourse = () => {
                         value={getter[item.id]}
                         onChange={setter[item.id]}
                         placeholder={item.placeholder}
+                        key={item.id}
                     />
                 )) }
                 <ButtonGroup>
-                    <Button variant="success">
+                    <Button variant="success" onClick={submitHandler}>
                         Submit
                     </Button>
-                    <Button variant="secondary">
+                    <Button variant="secondary" onClick={() => onNavigate(constants.ROUTES.COURSE_LIST)}>
                         Cancel
                     </Button>
                 </ButtonGroup>
@@ -45,4 +56,8 @@ const AddCourse = () => {
     )
 }
 
-export default AddCourse;
+const mapDispatchToProps = (dispatch) => ({
+    addCourse: course => dispatch(addCourse(course))
+})
+
+export default connect(null, mapDispatchToProps)(AddCourse);
