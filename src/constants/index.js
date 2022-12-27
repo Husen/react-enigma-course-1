@@ -8,6 +8,7 @@ const constants = {
         COURSE_TYPE: "/course-type",
 
         ADD_COURSE: "/add-course",
+        EDIT_COURSE: "/edit-course"
 
     }
 }

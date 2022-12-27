@@ -5,11 +5,19 @@ import {NavBar} from "./components";
 import AddCourse from "./pages/AddCourse";
 import CourseList from "./pages/CourseList";
 import TypeList from "./pages/TypeList";
+import EditCourse from "./pages/EditCourse";
 import store from "./store";
 import constants from "./constants";
 
 function App() {
     const [nav, setNav] = React.useState(constants.ROUTES.COURSE_LIST);
+    const [params, setParams] = React.useState(null);
+
+    const onNavigate = (route, params = null) => {
+        setNav(route);
+        setParams(params);
+    }
+
     let Component;
 
     const menu = [
@@ -27,6 +35,9 @@ function App() {
         case constants.ROUTES.COURSE_TYPE:
             Component = TypeList
             break;
+        case constants.ROUTES.EDIT_COURSE:
+            Component = EditCourse
+            break;
         default:
             Component = CourseList
             break;
@@ -35,7 +46,7 @@ function App() {
   return (
     <Provider store={store}>
         <NavBar menu={menu} />
-        <Component onNavigate={setNav} />
+        <Component onNavigate={onNavigate} params={params} />
     </Provider>
   );
 }
