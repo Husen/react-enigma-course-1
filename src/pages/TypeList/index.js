@@ -1,6 +1,6 @@
 import React from "react";
 
-import withList from "../../hoc/withList";
+import withPaginationList from "../../hoc/withPaginationList";
 
 import {StyledListGroup} from "./styles";
 import TypeItem from "./components/TypeItem";
@@ -17,8 +17,8 @@ const List = ({data}) => {
 }
 
 const mapStateToProps = state => ({
-    dataList: state.courseTypes.typeList,
+    listData: state.courseTypes.typeList,
     pagination: state.courseTypes.pagination
 })
 
-export default connect(mapStateToProps)(withList(List));
+export default connect(mapStateToProps)(withPaginationList(List, { label: "Course Type", navAdd: "/add-course-type" }));

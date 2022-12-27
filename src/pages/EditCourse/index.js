@@ -1,7 +1,6 @@
 import React from "react";
 import {ButtonGroup, Form, Button} from "react-bootstrap";
 
-import { withRouter } from '../../hoc/withRouter';
 import {
     FormInput,
     StyledContainer
@@ -100,4 +99,4 @@ const EditCourse = ({onNavigate, params}) => {
     );
 }
 
-export default withRouter(EditCourse);
+export default EditCourse;

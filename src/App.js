@@ -2,23 +2,21 @@ import React from "react";
 import {Provider} from "react-redux";
 
 import {NavBar} from "./components";
-import AddCourse from "./pages/AddCourse";
-import CourseList from "./pages/CourseList";
-import TypeList from "./pages/TypeList";
-import EditCourse from "./pages/EditCourse";
+import {
+    AddCourse, CourseList, TypeList, EditCourse
+} from "./pages";
 import store from "./store";
 import constants from "./constants";
 
 function App() {
-    const [nav, setNav] = React.useState(constants.ROUTES.COURSE_LIST);
+    const [nav, setNav] = React.useState("/");
     const [params, setParams] = React.useState(null);
+    let Component;
 
     const onNavigate = (route, params = null) => {
         setNav(route);
         setParams(params);
     }
-
-    let Component;
 
     const menu = [
         { name: "Course List", onNavigate: () => setNav(constants.ROUTES.COURSE_LIST) },
@@ -27,27 +25,27 @@ function App() {
 
     switch (nav) {
         case constants.ROUTES.COURSE_LIST:
-            Component = CourseList
+            Component = CourseList;
             break;
         case constants.ROUTES.ADD_COURSE:
-            Component = AddCourse
+            Component = AddCourse;
             break;
         case constants.ROUTES.COURSE_TYPE:
-            Component = TypeList
+            Component = TypeList;
             break;
         case constants.ROUTES.EDIT_COURSE:
             Component = EditCourse
             break;
         default:
-            Component = CourseList
+            Component = CourseList;
             break;
     }
 
   return (
-    <Provider store={store}>
-        <NavBar menu={menu} />
-        <Component onNavigate={onNavigate} params={params} />
-    </Provider>
+      <Provider store={store}>
+          <NavBar menu={menu} />
+          <Component onNavigate={onNavigate} params={params} />
+      </Provider>
   );
 }
 

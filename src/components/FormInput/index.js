@@ -24,6 +24,7 @@ const FormInput = ({
                 {...props}
                 placeholder={placeholder}
                 onChange={onChange}
+                isValid={!!value}
             />
         </FormGroup>
     )
