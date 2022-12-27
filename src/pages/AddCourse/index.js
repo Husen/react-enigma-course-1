@@ -9,7 +9,7 @@ import {addCourse} from "../../store/actions/courseAction";
 import constants from "../../constants";
 
 import {StyledTitle} from "./styles";
-import useAddCourseState from "./hooks/useAddCourseState";
+import useAddCourse from "./useAddCourse";
 
 const FORM_LIST = [
     { id: "title", label: "Title", type: "text", placeholder: "Enter course title" },
@@ -23,7 +23,7 @@ const FORM_LIST = [
 const AddCourse = ({
     addCourse, onNavigate
 }) => {
-    const { getter, setter } = useAddCourseState();
+    const { getter, setter } = useAddCourse();
     const submitHandler = () => {
         addCourse(getter)
         onNavigate(constants.ROUTES.COURSE_LIST)
