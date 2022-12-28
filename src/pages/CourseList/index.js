@@ -28,4 +28,6 @@ const mapStateToProps = state => ({
     pagination: state.courses.pagination
 })
 
-export default connect(mapStateToProps)(withPaginationList(List, { label: "Course", navAdd: "/add-course" }));
+export default connect(mapStateToProps)(withPaginationList(List, {
+    label: "Course", navAdd: constants.ROUTES.ADD_COURSE
+}));

@@ -1,17 +1,24 @@
 import React from "react";
 import {Container, Navbar, NavLink} from 'react-bootstrap'
+import {Link} from "react-router-dom";
 
 import {StyledNav} from "./styles";
+import constants from "../../constants";
 
-const NavBarComp = ({menu}) => (
+const menu = [
+    { path: constants.ROUTES.COURSE_LIST, menuName: "Course List" },
+    { path: constants.ROUTES.COURSE_TYPE, menuName: "Course Type" },
+]
+
+const NavBarComp = () => (
     <Navbar bg="light" expand="light" sticky={"top"}>
         <Container>
             <Navbar.Brand>Enigma Course</Navbar.Brand>
             <StyledNav>
                 {menu?.map((item, index) => (
-                    <NavLink onClick={item.onNavigate} className="nav-link mx-3" key={index}>
-                        {item.name}
-                    </NavLink>
+                    <Link to={item.path} className="nav-link mx-3" key={index}>
+                        {item.menuName}
+                    </Link>
                 ))}
             </StyledNav>
         </Container>
