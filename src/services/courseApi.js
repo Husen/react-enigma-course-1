@@ -5,5 +5,5 @@ export const getCourseById = (id) => {
 
     return courseList.filter((course) => {
         return course.courseId === id;
-    })
+    })?.[0]
 }

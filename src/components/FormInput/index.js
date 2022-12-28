@@ -2,15 +2,12 @@ import {FormControl, FormGroup, FormLabel} from "react-bootstrap";
 
 
 const FormInput = ({
-    label, type, placeholder, value, onChange
+    label, type, placeholder, value, onChange, disabled
 }) => {
     let props;
     switch (type){
         case "textarea":
             props = { as: type, value }
-            break;
-        case "file":
-            props = { type }
             break;
         default:
             props = { type, value }
@@ -25,6 +22,7 @@ const FormInput = ({
                 placeholder={placeholder}
                 onChange={onChange}
                 isValid={!!value}
+                disabled={disabled}
             />
         </FormGroup>
     )

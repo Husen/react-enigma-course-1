@@ -7,6 +7,8 @@ import {
 } from "../../components";
 import constants from "../../constants";
 import {getCourseById} from "../../services/courseApi";
+import {deleteCourse, editCourse} from "../../store/actions/courseAction";
+import {connect} from "react-redux";
 
 const initialData = {
     title: "",
@@ -17,7 +19,7 @@ const initialData = {
     level: ""
 }
 
-const EditCourse = ({onNavigate, params}) => {
+const EditCourse = ({onNavigate, params, editCourse}) => {
     const [data, setData] = React.useState(initialData);
 
     React.useEffect(() => {
@@ -34,10 +36,15 @@ const EditCourse = ({onNavigate, params}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const _data = {
+        const payload = {
+            courseId: params.id,
             ...data
         };
-        delete _data.file;
+        delete payload.file;
+        delete payload.typeId;
+
+        editCourse(payload)
+        onNavigate(constants.ROUTES.COURSE_LIST);
     }
 
     const handleCancel = (e) => {
@@ -99,4 +106,10 @@ const EditCourse = ({onNavigate, params}) => {
     );
 }
 
-export default EditCourse;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        editCourse: (data) => dispatch(editCourse(data)),
+    }
+}
+
+export default connect(null, mapDispatchToProps)(EditCourse);

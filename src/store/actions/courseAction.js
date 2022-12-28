@@ -12,3 +12,13 @@ export const addCourse = (course) => ({
         courseTypeId: course.typeId,
     }
 })
+
+export const editCourse = (course) => ({
+    type: constants.ACTION.EDIT_COURSE,
+    payload: course
+})
+
+export const deleteCourse = (id) => ({
+    type: constants.ACTION.DELETE_COURSE,
+    payload: id
+})
