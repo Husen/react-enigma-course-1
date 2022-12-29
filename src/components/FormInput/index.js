@@ -1,33 +1,18 @@
-import {FormControl, FormGroup, FormLabel} from "react-bootstrap";
+import React from "react";
+import {FormFile, FormText} from "../index";
 
-
-const FormInput = ({
-    label, type, placeholder, value, onChange
-}) => {
-    let props;
-    switch (type){
-        case "textarea":
-            props = { as: type, value }
-            break;
+const FormInput = (props) => {
+    let Component;
+    switch (props.type){
         case "file":
-            props = { type }
+            Component = FormFile;
             break;
         default:
-            props = { type, value }
-            break;
+            Component = FormText;
+        break;
     }
 
-    return (
-        <FormGroup className="mb-3">
-            <FormLabel>{label}</FormLabel>
-            <FormControl
-                {...props}
-                placeholder={placeholder}
-                onChange={onChange}
-                isValid={!!value}
-            />
-        </FormGroup>
-    )
+    return <Component {...props} />
 }
 
 export default FormInput;

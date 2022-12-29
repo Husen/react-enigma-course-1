@@ -1,9 +1,8 @@
 import React from "react";
 import {StyledListItem} from "./styles";
 import {Button, ButtonGroup, Col} from "react-bootstrap";
-import constants from "../../../../constants";
 
-const CourseItem = ({data, onNavigateToEdit}) => {
+const CourseItem = ({data, onNavigateToEdit, onDelete}) => {
     return (
         <StyledListItem action>
             <Col>
@@ -12,7 +11,7 @@ const CourseItem = ({data, onNavigateToEdit}) => {
             </Col>
             <ButtonGroup>
                 <Button variant="primary" onClick={onNavigateToEdit}>Edit</Button>
-                <Button variant="danger" onClick={() => {}}>Delete</Button>
+                <Button variant="danger" onClick={onDelete}>Delete</Button>
                 <Button variant="secondary" onClick={() => {}}>Download</Button>
             </ButtonGroup>
         </StyledListItem>

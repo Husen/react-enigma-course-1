@@ -4,27 +4,27 @@ import {onChangeFile, onChangeText} from "../../utils/eventHandlers";
 const useAddCourse = () => {
     const [title, setTitle] = React.useState("");
     const [description, setDescription] = React.useState("");
-    const [typeId, setTypeId] = React.useState("");
+    const [courseTypeId, setTypeId] = React.useState("");
     const [courseFile, setCourseFile] = React.useState(null);
     const [level, setLevel] = React.useState("");
     const [duration, setDuration] = React.useState("");
     const [isDisable, setDisable] = React.useState(true);
 
-    const getter = {title, description, typeId, courseFile, level, duration, isDisable};
+    const getter = {title, description, courseTypeId, courseFile, level, duration, isDisable};
     const setter = {
         title: onChangeText(setTitle),
         description: onChangeText(setDescription),
-        typeId: onChangeText(setTypeId),
+        courseTypeId: onChangeText(setTypeId),
         courseFile: onChangeFile(setCourseFile),
         level: onChangeText(setLevel),
         duration: onChangeText(setDuration),
     }
 
     React.useEffect(() => {
-        if (title && description && typeId && courseFile && level && duration) {
+        if (title && description && courseTypeId && courseFile && level && duration) {
             setDisable(false)
         } else setDisable(true)
-    }, [courseFile, description, duration, level, title, typeId])
+    }, [courseFile, description, duration, level, title, courseTypeId])
 
     return {
         getter, setter
