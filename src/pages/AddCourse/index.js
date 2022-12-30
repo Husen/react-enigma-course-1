@@ -3,7 +3,7 @@ import {
     Form, Button, ButtonGroup
 } from "react-bootstrap";
 import {connect} from "react-redux";
-import {Prompt, useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 import {FormInput, StyledContainer} from "../../components";
 import {addCourse} from "../../store/actions/courseAction";
@@ -25,19 +25,15 @@ const AddCourse = ({
     addCourse
 }) => {
     const { getter, setter } = useAddCourse();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const submitHandler = () => {
         addCourse(getter)
-        history.push(constants.ROUTES.COURSE_LIST)
+        navigate(constants.ROUTES.COURSE)
     }
 
     return (
         <StyledContainer>
-            <Prompt
-                message={() => "Apa kamu yakin ingin meninggalkan halaman ini?"}
-                when={!getter.isDisable}
-            />
             <StyledTitle>Add Course</StyledTitle>
             <Form>
                 { FORM_LIST.map(item => (
@@ -54,7 +50,7 @@ const AddCourse = ({
                     <Button variant="success" onClick={submitHandler} disabled={getter.isDisable}>
                         Submit
                     </Button>
-                    <Button variant="secondary" onClick={() => history.push(constants.ROUTES.COURSE_LIST)}>
+                    <Button variant="secondary" onClick={() => navigate(constants.ROUTES.COURSE)}>
                         Cancel
                     </Button>
                 </ButtonGroup>

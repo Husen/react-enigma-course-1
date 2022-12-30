@@ -10,6 +10,7 @@ import {getCourseById} from "../../services/courseApi";
 import {editCourse} from "../../store/actions/courseAction";
 import {connect} from "react-redux";
 import {onChangeTexts} from "../../utils/eventHandlers";
+import {useNavigate, useParams} from "react-router-dom";
 
 const initialData = {
     title: "",
@@ -29,11 +30,13 @@ const FORM_LIST = [
     { id: "duration", label: "Duration", type: "text", placeholder: "Enter course duration" }
 ]
 
-const EditCourse = ({onNavigate, params, editCourse}) => {
+const EditCourse = ({editCourse}) => {
     const [data, setData] = React.useState(initialData);
+    const navigate = useNavigate();
+    const params = useParams();
 
     React.useEffect(() => {
-        let course = getCourseById(params.id);
+        let course = getCourseById(params.courseId);
         course = {
             courseId: course?.courseId,
             title: course?.title,
@@ -50,19 +53,19 @@ const EditCourse = ({onNavigate, params, editCourse}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const payload = {
-            courseId: params.id,
+            courseId: params.courseId,
             ...data
         };
         delete payload.courseFile;
         delete payload.courseTypeId;
 
         editCourse(payload)
-        onNavigate(constants.ROUTES.COURSE_LIST);
+        navigate(constants.ROUTES.COURSE);
     }
 
     const handleCancel = (e) => {
         e.preventDefault();
-        onNavigate(constants.ROUTES.COURSE_LIST);
+        navigate(constants.ROUTES.COURSE);
     }
 
     return (

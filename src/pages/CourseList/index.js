@@ -6,11 +6,13 @@ import CourseItem from "./components/CourseItem";
 import withPaginationList from "../../hoc/withPaginationList";
 import constants from "../../constants";
 import {deleteCourse} from "../../store/actions/courseAction";
+import {useNavigate} from "react-router-dom";
 
-const List = ({data, onNavigate}) => {
+const List = ({data}) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const onNavigateToEdit = (id) => () => {
-        onNavigate(constants.ROUTES.EDIT_COURSE, { id });
+        navigate(`${constants.ROUTES.EDIT_COURSE}/${id}`);
     }
 
     const onDelete = (id) => () => {
@@ -40,5 +42,6 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps)(withPaginationList(List, {
-    label: "Course", navAdd: constants.ROUTES.ADD_COURSE
+    label: "Course",
+    routeToAdd: constants.ROUTES.ADD_COURSE
 }));
