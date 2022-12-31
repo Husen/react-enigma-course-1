@@ -4,7 +4,7 @@ import {NavLink, useNavigate} from "react-router-dom";
 
 import {StyledNav} from "./styles";
 import constants from "../../constants";
-import useToken from "../../hooks/useToken";
+import token, {removeToken} from "../../utils/token";
 
 const menu = [
     { path: constants.ROUTES.COURSE, menuName: "Course" },
@@ -12,7 +12,6 @@ const menu = [
 ]
 
 const NavBarComp = () => {
-    const {removeToken} = useToken();
     const navigate = useNavigate();
     const onLogout = () => {
         removeToken();

@@ -3,12 +3,12 @@ import React from "react";
 
 import constants from "../../constants";
 import {NavBar} from "../../components";
-import useToken from "../../hooks/useToken";
+import {getToken} from "../../utils/token";
 
 const {ROUTES} = constants;
 
 const ProtectedRoutes = () => {
-    const {token} = useToken();
+    const token = getToken();
     if (!token) {
         return <Navigate to={ROUTES.LOGIN} replace />
     }

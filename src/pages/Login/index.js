@@ -4,24 +4,29 @@ import {FormText, StyledContainer} from "../../components";
 import {onChangeText} from "../../utils/eventHandlers";
 import {useNavigate} from "react-router-dom";
 import constants from "../../constants";
-import useToken from "../../hooks/useToken";
+import {login} from "../../services/authApi";
+import useFetchMutation from "../../hook/useFetchMutation";
+import {setToken} from "../../utils/token";
 
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
-    const {setToken} = useToken();
+    const {loading, fetchMutation} = useFetchMutation(login, (data) => {
+        const token = data?.data;
+        if (token) {
+            setToken(token)
+            navigate(constants.ROUTES.DASHBOARD)
+        }
+    });
 
     function validateForm() {
-        const emailInDb = "enigma@enigma.com";
-        const passwordInDb = "123"
         return email.length > 0 && password.length > 0;
     }
 
     function handleSubmit(event) {
         event.preventDefault();
-        setToken({token: "ini adalah token"});
-        navigate(constants.ROUTES.DASHBOARD);
+        fetchMutation({email, password});
     }
 
     return (
@@ -43,7 +48,7 @@ function Login() {
                     value={password}
                     onChange={onChangeText(setPassword)}
                 />
-                <Button size="lg" type="submit" disabled={!validateForm()}>
+                <Button size="lg" type="submit" variant="success" disabled={!validateForm()}>
                     Login
                 </Button>
             </Form>

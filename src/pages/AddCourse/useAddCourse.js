@@ -5,7 +5,7 @@ const useAddCourse = () => {
     const [title, setTitle] = React.useState("");
     const [description, setDescription] = React.useState("");
     const [courseTypeId, setTypeId] = React.useState("");
-    const [courseFile, setCourseFile] = React.useState(null);
+    const [courseFile, setCourseFile] = React.useState();
     const [level, setLevel] = React.useState("");
     const [duration, setDuration] = React.useState("");
     const [isDisable, setDisable] = React.useState(true);

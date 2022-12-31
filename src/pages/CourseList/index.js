@@ -1,16 +1,16 @@
 import React from "react";
-import {connect, useDispatch} from "react-redux";
 
 import {StyledListGroup} from "./styles";
 import CourseItem from "./components/CourseItem";
 import withPaginationList from "../../hoc/withPaginationList";
 import constants from "../../constants";
-import {deleteCourse} from "../../store/actions/courseAction";
 import {useNavigate} from "react-router-dom";
+import {deleteCourseById, downloadCourseFile, getCourses} from "../../services/courseApi";
+import useFetchMutation from "../../hook/useFetchMutation";
 
-const List = ({data}) => {
-    const dispatch = useDispatch();
+const List = ({data, refetch}) => {
     const navigate = useNavigate();
+    const {fetchMutation} = useFetchMutation(deleteCourseById, refetch);
     const onNavigateToEdit = (id) => () => {
         navigate(`${constants.ROUTES.EDIT_COURSE}/${id}`);
     }
@@ -18,8 +18,16 @@ const List = ({data}) => {
     const onDelete = (id) => () => {
         const isOk = window.confirm("Anda yakin ingin menghapus course ini?");
         if (isOk) {
-            dispatch(deleteCourse(id));
+            fetchMutation(id);
         }
+    }
+
+    const onDownload = (fileLink) => (e) => {
+        e.preventDefault();
+        const path = fileLink?.split("\\");
+        const filename = path[path.length - 1];
+
+        downloadCourseFile(filename);
     }
 
     return (
@@ -30,18 +38,15 @@ const List = ({data}) => {
                     key={item.courseId}
                     onNavigateToEdit={onNavigateToEdit(item.courseId)}
                     onDelete={onDelete(item.courseId)}
+                    onDownload={onDownload(item.link)}
                 />
             ))}
         </StyledListGroup>
     )
 }
 
-const mapStateToProps = state => ({
-    listData: state.courses.courseList,
-    pagination: state.courses.pagination
-})
-
-export default connect(mapStateToProps)(withPaginationList(List, {
+export default withPaginationList(List, {
     label: "Course",
-    routeToAdd: constants.ROUTES.ADD_COURSE
-}));
+    routeToAdd: constants.ROUTES.ADD_COURSE,
+    query: getCourses
+});
