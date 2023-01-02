@@ -29,7 +29,6 @@ axiosInstance.interceptors.response.use(
         const data = error?.response?.data;
         if (data.code === "X06") {
             removeToken();
-            window.location.reload();
         }
         return Promise.reject(error);
     }

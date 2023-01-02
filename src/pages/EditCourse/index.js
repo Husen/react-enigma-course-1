@@ -2,7 +2,8 @@ import React from "react";
 import {ButtonGroup, Form, Button} from "react-bootstrap";
 
 import {
-    FormInput,
+    FormFile,
+    FormInput, FormSelect,
     StyledContainer
 } from "../../components";
 import constants from "../../constants";
@@ -11,6 +12,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {getCourseById, updateCourseById} from "../../services/courseApi";
 import useFetchQuery from "../../hook/useFetchQuery";
 import useFetchMutation from "../../hook/useFetchMutation";
+import {getCourseTypes} from "../../services/typeApi";
 
 const initialData = {
     title: "",
@@ -24,8 +26,6 @@ const initialData = {
 const FORM_LIST = [
     { id: "title", label: "Title", type: "text", placeholder: "Enter course title" },
     { id: "description", label: "Description", type: "textarea", placeholder: "Enter course description" },
-    { id: "courseTypeId", label: "Type Id", type: "text", placeholder: "Enter course type id", disabled: true },
-    { id: "courseFile", label: "Course Material", type: "file", placeholder: "Choose course material", disabled: true },
     { id: "level", label: "Level", type: "text", placeholder: "Enter course level" },
     { id: "duration", label: "Duration", type: "text", placeholder: "Enter course duration" }
 ]
@@ -45,6 +45,7 @@ const EditCourse = () => {
     const navigate = useNavigate();
     const params = useParams();
     const {data, loading} = useFetchQuery(getCourseById, params.courseId);
+    const {data: typeData} = useFetchQuery(getCourseTypes)
     const {fetchMutation} = useFetchMutation(
         updateCourseById,
         () => navigate(constants.ROUTES.COURSE)
@@ -86,10 +87,26 @@ const EditCourse = () => {
                             key={index}
                             {...item}
                             value={course[item.id]}
-                            onChange={!item.disabled ? onChangeTexts(item.id, setCourse) : () => {}}
+                            onChange={onChangeTexts(item.id, setCourse)}
                         />
                     )
                 })}
+                <FormFile
+                    label="Course Material"
+                    value={course["courseFile"]}
+                    placeholder="Choose course material"
+                    disabled
+                />
+                <FormSelect
+                    label="Course Type Id"
+                    placeholder="Enter course type id"
+                    onChange={onChangeTexts("courseTypeId", setCourse)}
+                    value={course["courseTypeId"]}
+                    values={typeData?.data?.map((item) => ({
+                        value: item?.courseTypeId,
+                        label: item?.typeName
+                    }))}
+                />
                 <ButtonGroup size={"lg"}>
                     <Button onClick={handleSubmit} variant={"success"}>Update</Button>
                     <Button onClick={handleCancel} variant={"danger"}>Cancel</Button>
