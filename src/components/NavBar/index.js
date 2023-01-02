@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Container, Navbar} from 'react-bootstrap'
+import {Button, Col, Container, Navbar} from 'react-bootstrap'
 import {NavLink, useNavigate} from "react-router-dom";
 
 import {StyledNav} from "./styles";
@@ -22,21 +22,27 @@ const NavBarComp = () => {
     return (
         <Navbar bg="light" expand="light" sticky={"top"}>
             <Container>
-                <Navbar.Brand>Enigma Course</Navbar.Brand>
-                <StyledNav>
-                    {menu?.map((item, index) => (
-                        <NavLink
-                            to={item.path}
-                            className="nav-link mx-3"
-                            key={index}
-                        >
-                            {item.menuName}
-                        </NavLink>
-                    ))}
-                    <Button variant="primary" onClick={onLogout}>
+                <Col>
+                    <Navbar.Brand>Enigma Course</Navbar.Brand>
+                </Col>
+                <Col className="col-2">
+                    <StyledNav>
+                        {menu?.map((item, index) => (
+                            <NavLink
+                                to={item.path}
+                                className="nav-link mx-3"
+                                key={index}
+                            >
+                                {item.menuName}
+                            </NavLink>
+                        ))}
+                    </StyledNav>
+                </Col>
+                <Col className="col-1">
+                    <Button variant="outline-danger" onClick={onLogout}>
                         Logout
                     </Button>
-                </StyledNav>
+                </Col>
             </Container>
         </Navbar>
     )
