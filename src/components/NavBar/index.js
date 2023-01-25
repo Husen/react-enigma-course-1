@@ -4,7 +4,7 @@ import {NavLink, useNavigate} from "react-router-dom";
 
 import {StyledNav} from "./styles";
 import constants from "../../constants";
-import token, {removeToken} from "../../utils/token";
+import {removeToken} from "../../utils/token";
 
 const menu = [
     { path: constants.ROUTES.COURSE, menuName: "Course" },

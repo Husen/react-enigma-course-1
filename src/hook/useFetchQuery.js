@@ -12,7 +12,6 @@ const useFetchQuery = (query, params) => {
         refetch();
     }, [params]);
 
-
     useEffect(() => {
         const fetchQuery = async () => {
             try {

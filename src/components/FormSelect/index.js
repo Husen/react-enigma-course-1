@@ -1,7 +1,7 @@
 import {Form, FormGroup, FormLabel} from "react-bootstrap";
 import React from "react";
 
-const FormText = ({
+const FormSelect = ({
       label, placeholder, values, onChange, disabled, value
   }) => {
     return (
@@ -27,4 +27,4 @@ const FormText = ({
     )
 }
 
-export default FormText;
+export default FormSelect;
